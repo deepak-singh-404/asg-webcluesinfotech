@@ -27,7 +27,7 @@ const addUser = async (req, res) => {
         return res.status(200).json({
             success: true, message: "User added successfully", response: {
                 _id: newUser._id,
-                name: newUser._id,
+                name: newUser.name,
                 email: newUser.email,
                 profileImage: newUser.profileImage
             }
