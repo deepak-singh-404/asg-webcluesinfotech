@@ -24,7 +24,14 @@ const addUser = async (req, res) => {
             profileImage
         })
         await newUser.save()
-        return res.status(200).json({ success: true, message: "User added successfully", response: newUser })
+        return res.status(200).json({
+            success: true, message: "User added successfully", response: {
+                _id: newUser._id,
+                name: newUser._id,
+                email: newUser.email,
+                profileImage: newUser.profileImage
+            }
+        })
     }
     catch (err) {
         return res.status(500).json({ success: false, message: "Internal Server Error", response: err.message })
@@ -33,7 +40,7 @@ const addUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find({})
+        const users = await User.find({}, { name: 1, email: 1, profileImage: 1 })
         return res.status(200).json({ success: true, count: users.length, message: "User fetched successfully", response: users })
     }
     catch (err) {
